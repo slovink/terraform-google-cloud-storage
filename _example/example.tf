@@ -1,47 +1,33 @@
 provider "google" {
-  project = "xxxxxxxx"
-  region  = "us-central1"
-  zone    = "us-central1-c"
-
+  project = "testing-gcp-ops"
+  region  = "asia-northeast1"
+  zone    = "asia-northeast1-a"
 }
 
+#####==============================================================================
+##### bucket_logs module call .
+#####==============================================================================
 module "bucket_logs" {
-  source = "../"
-
-  name        = "storage-bucket"
-  environment = "test-log-bukcet"
-  label_order = ["name", "environment"]
-  extra_tags  = {
-    managedby = "slovink"
-  }
-
-  location = "US"
+  source      = "./../"
+  name        = "ops-logs"
+  environment = "test10"
+  location    = "asia"
 }
 
+#####==============================================================================
+##### bucket module call .
+#####==============================================================================
 module "bucket" {
-  source = "../"
-
-  name        = "storage-bucket"
-  environment = "test-main-bukcet"
-  label_order = ["name", "environment"]
-  extra_tags = {
-    managedby = "slovink"
-  }
-
-  location = "US"
-
-  #website
-  website = {
-    main_page_suffix = "index.html"
-    not_found_page   = "404.html"
-  }
+  source      = "./../"
+  name        = "ops10"
+  environment = "test"
+  location    = "asia"
 
   #logging
   logging = {
-    log_bucket        = module.bucket_logs.bucket.id
+    log_bucket        = module.bucket_logs.bucket_id
     log_object_prefix = "gcs-log"
   }
-
   #cors
   cors = [{
     origin          = ["http://image-store.com"]
@@ -49,19 +35,18 @@ module "bucket" {
     response_header = ["*"]
     max_age_seconds = 3600
   }]
-
- # versioning
+  # versioning
   versioning = true
 
   #lifecycle_rules
   lifecycle_rules = [{
     action = {
       type          = "SetStorageClass"
-      storage_class = "NEARLINE"
+      storage_class = "ARCHIVE"
     }
     condition = {
-      age                        = 60
-      created_before             = "2018-08-20"
+      age                        = 23
+      created_before             = "2023-09-7"
       with_state                 = "LIVE"
       matches_storage_class      = ["STANDARD"]
       num_newer_versions         = 10
@@ -71,6 +56,4 @@ module "bucket" {
       noncurrent_time_before     = "1970-01-01"
     }
   }]
-
-
 }

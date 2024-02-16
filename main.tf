@@ -1,26 +1,31 @@
 module "labels" {
-  source  = "cloudlovers/labels/google"
-  version = "1.0.1"
-  enabled = var.enabled
-
+  source      = "git@github.com:slovink/terraform-google-labels.git"
   name        = var.name
   environment = var.environment
   label_order = var.label_order
-  extra_tags  = var.extra_tags
+  managedby   = var.managedby
+  repository  = var.repository
 }
 
-resource "google_storage_bucket" "main" {
+data "google_client_config" "current" {
+}
+
+#####==============================================================================
+##### Creates a new bucket in Google cloud storage service (GCS).
+#####==============================================================================
+#tfsec:ignore:google-storage-bucket-encryption-customer-key
+resource "google_storage_bucket" "bucket" {
   count                       = var.enabled ? 1 : 0
-  name                        = module.labels.id
+  name                        = format("%s-bucket", module.labels.id)
+  project                     = data.google_client_config.current.project
   location                    = var.location
+  labels                      = var.labels
   force_destroy               = var.force_destroy
   uniform_bucket_level_access = var.uniform_bucket_level_access
   storage_class               = var.storage_class
   default_event_based_hold    = var.default_event_based_hold
   public_access_prevention    = var.public_access_prevention
   requester_pays              = var.requester_pays
-
-  labels = module.labels.tags
 
   dynamic "encryption" {
     for_each = var.default_kms_key_name != null ? ["encryption"] : []
@@ -58,6 +63,7 @@ resource "google_storage_bucket" "main" {
     }
   }
 
+
   versioning {
     enabled = var.versioning
   }
@@ -70,6 +76,7 @@ resource "google_storage_bucket" "main" {
         storage_class = lifecycle_rule.value.action.type == "SetStorageClass" ? lifecycle_rule.value.action.storage_class : null
         type          = lifecycle_rule.value.action.type
       }
+
       condition {
         age                        = try(lifecycle_rule.value.condition.age, null)
         created_before             = try(lifecycle_rule.value.condition.created_before, null)
@@ -83,5 +90,4 @@ resource "google_storage_bucket" "main" {
       }
     }
   }
-
 }
