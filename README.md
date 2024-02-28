@@ -20,7 +20,7 @@ To use this module, you should have Terraform installed and configured for GCP. 
 
 ```hcl
 module "bucket_logs" {
-  source      = "git@github.com:slovink/terraform-google-cloud-storage.git"
+  source      = "git::https://github.com/slovink/terraform-google-cloud-storage.git?ref=v1.0.0"
   name        = "logs"
   environment = "test"
   location    = "asia"
@@ -28,7 +28,7 @@ module "bucket_logs" {
 
 # bucket with rules.
 module "bucket" {
-  source      = "git@github.com:slovink/terraform-google-cloud-storage.git"
+  source      = "git::https://github.com/slovink/terraform-google-cloud-storage.git?ref=v1.0.0"
   name        = "app"
   environment = "test"
   location    = "asia"
@@ -92,13 +92,13 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | >= 3.50, < 5.11.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | 4.84.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_labels"></a> [labels](#module\_labels) | slovink/labels/google | 1.0.1 |
+| <a name="module_labels"></a> [labels](#module\_labels) | git::https://github.com/slovink/terraform-google-labels.git | v1.0.2 |
 
 ## Resources
 

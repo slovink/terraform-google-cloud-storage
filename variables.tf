@@ -24,7 +24,7 @@ variable "managedby" {
 
 variable "repository" {
   type        = string
-  default     = "https://github.com/slovink/terraform-google-cloud-storage.git"
+  default     = "https://github.com/slovink/terraform-google-cloud-storage"
   description = "Terraform current module repo"
 }
 
