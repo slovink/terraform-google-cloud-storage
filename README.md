@@ -163,7 +163,7 @@ This project is licensed under the **MIT** License - see the [LICENSE](https://g
 | <a name="input_requester_pays"></a> [requester\_pays](#input\_requester\_pays) | (Optional, Default: false) Enables Requester Pays on a storage bucket. | `bool` | `false` | no |
 | <a name="input_retention_policy"></a> [retention\_policy](#input\_retention\_policy) | Configuration of the bucket's data retention policy for how long objects in the bucket should be retained. | `any` | `null` | no |
 | <a name="input_storage_class"></a> [storage\_class](#input\_storage\_class) | (Optional, Default: 'STANDARD') The Storage Class of the new bucket. Supported values include: STANDARD, MULTI\_REGIONAL, REGIONAL, NEARLINE, COLDLINE, ARCHIVE. | `string` | `"STANDARD"` | no |
-| <a name="input_uniform_bucket_level_access"></a> [uniform\_bucket\_level\_access](#input\_uniform\_bucket\_level\_access) | (Optional, Default: false) Enables Uniform bucket-level access access to a bucket. | `bool` | `false` | no |
+| <a name="input_uniform_bucket_level_access"></a> [uniform\_bucket\_level\_access](#input\_uniform\_bucket\_level\_access) | (Optional, Default: false) Enables Uniform bucket-level access access to a bucket. | `bool` | `true` | no |
 | <a name="input_versioning"></a> [versioning](#input\_versioning) | (Optional) The bucket's Versioning configuration. | `bool` | `true` | no |
 
 ## Outputs
