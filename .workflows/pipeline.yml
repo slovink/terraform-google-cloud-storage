@@ -5,17 +5,7 @@ parameters:
     values:
       - "Azure Pipelines"
       - "Slovink-Selfhosted-Agent"
-  - name: destroy
-    type: string
-    values:
-      - "true"
-      - "false"
-  - name: apply_flag
-    type: string
-    values:
-      - "true"
-      - "false"
-
+  
 trigger:
 - main
 
@@ -40,10 +30,6 @@ variables:
   value: "us-east1-b"
 - name: agentPoolName
   value:  ${{ parameters.agentPool }}
-- name: destroy
-  value: ${{ parameters.destroy }}
-- name: apply_flag
-  value: ${{ parameters.apply_flag }}
 pool:
   name: $(agentPoolName)
 
@@ -68,11 +54,11 @@ stages:
       - script: |
           cp $(development.secureFilePath) .
 
-  - stage: Network
+  - stage: Cloud_Storage
     dependsOn: Prepare
-    displayName: Network
+    displayName: Cloud_storage
     jobs:
-    - job: Network
+    - job: Cloud_Storage
       steps:
       - task: TerraformCLI@0
         displayName: Terraform Initialize
