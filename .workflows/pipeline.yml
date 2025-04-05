@@ -5,7 +5,7 @@ parameters:
     values:
       - "Azure Pipelines"
       - "Slovink-Selfhosted-Agent"
-  
+
 trigger:
 - main
 
@@ -137,4 +137,4 @@ stages:
     #       providerGoogleProject: $(ProjectName)
     #       # The default region where resources are managed. Defining region on a resource takes precedence over this.
     #       providerGoogleRegion: $(Region)
-    #       commandOptions: '-var "platformName=$(platformName)" -var "projectId=$(ProjectId)"  -var "projectName=$(projectName)" -var "region=${Region)"'
+    #       commandOptions: '-var "platformName=$(platformName)" -var "projectId=$(ProjectId)"  -var "projectName=$(projectName)" -var "region=${Region)"
