@@ -102,7 +102,7 @@ variable "requester_pays" {
 
 variable "uniform_bucket_level_access" {
   type        = bool
-  default     = false
+  default     = true
   description = "(Optional, Default: false) Enables Uniform bucket-level access access to a bucket."
 }
 
